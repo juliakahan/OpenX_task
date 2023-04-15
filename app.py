@@ -15,7 +15,6 @@ def predict():
     data = request.get_json()
     input_features = np.array(data['input_features'])
 
-    # Choose the model based on the user's choice
     model_choice = data['model_choice']
     if model_choice == 'heuristic':
         model = heuristic_model
@@ -26,15 +25,12 @@ def predict():
     elif model_choice == 'nn_model':
         model = nn_model
 
-    # Make a prediction using the chosen model
     prediction = model.predict(input_features.reshape(1, -1))[0]
 
-    # Format the prediction as a JSON object and return it
     response = {
         'prediction': int(prediction)
     }
     return jsonify(response)
 
-# Run the Flask app
 if __name__ == '__main__':
     app.run()
